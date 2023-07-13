@@ -7,10 +7,9 @@
 
 
 /**
- *strcmp-prototype
- *Return: 0 if same string
+ * strcmp-prototype
+ * Return: 0 if same string
  */
-
 int strcmp(const char* s1, const char* s2)
 {
     while(*s1 && (*s1 == *s2))
@@ -21,15 +20,15 @@ int strcmp(const char* s1, const char* s2)
     return *(const unsigned char*)s1 - *(const unsigned char*)s2;
 }
 
-// The User-defined method
+/**
+ * str_length - Calculates the total string length
+ * Return: String length
+ */
 int str_length(char str[]) {
-    // initializing count variable (stores the length of the string)
     int count;
 
-    // incrementing the count till the end of the string
     for (count = 0; str[count] != '\0'; ++count);
 
-    // returning the character count of the string
     return count;
 }
 
