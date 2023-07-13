@@ -10,7 +10,7 @@
  * strcmp-prototype
  * Return: 0 if same string
  */
-int strcmp(const char* s1, const char* s2)
+int _strcmp(const char* s1, const char* s2)
 {
     while(*s1 && (*s1 == *s2))
     {
@@ -24,12 +24,56 @@ int strcmp(const char* s1, const char* s2)
  * str_length - Calculates the total string length
  * Return: String length
  */
-int str_length(char str[]) {
+int _strlen(char str[]) {
     int count;
 
     for (count = 0; str[count] != '\0'; ++count);
 
     return count;
+}
+
+/**
+  *_strdup - returns a pointer to a newly alloctaed
+  *space in memory which contains a copy of the string
+  *passed.
+  *@str: pointer to string being duplicated.
+  *
+  *Return: NULL if str is NULL.
+  *pointer to duplicated string on success.
+  *NULL if memory was insufficient.
+  */
+char *_strdup(char *str)
+{
+	char *nstr;
+	unsigned int len, i;
+
+	/* check is str is null */
+	if (str == NULL)
+	{
+		return (NULL);
+	}
+
+	len = 0;
+	while (str[len] != '\0')
+	{
+		len++;
+	}
+
+	nstr = malloc(sizeof(char) * (len + 1));
+
+	/*check if malloc was successful*/
+	if (nstr == NULL)
+	{
+		return (NULL);
+	}
+
+	for (i = 0; i < len; i++)
+	{
+		nstr[i] = str[i];
+	}
+	nstr[len] = '\0';
+	return (nstr);
+
 }
 
 /**
@@ -48,7 +92,7 @@ char **str_split(char *str, int *number_of_words)
     {
         return (NULL);
     }
-    str_cpy = strdup (str);
+    str_cpy = _strdup (str);
     piece = strtok(str_cpy, " ");
     while (piece != NULL)
     {
@@ -70,8 +114,8 @@ char **str_split(char *str, int *number_of_words)
             piece = strtok(NULL, " ");
             continue;
         }
-        str_arr[i] = (char *)malloc(sizeof(char) * (strlen(piece) + 1));
-        strcpy(str_arr[i], piece);
+        str_arr[i] = (char *)malloc(sizeof(char) * (_strlen(piece) + 1));
+        str_arr[i] = _strdup(piece);
         piece = strtok(NULL, " ");
     }
 
@@ -98,13 +142,19 @@ int main(void)
                 {
                         return (0);
                 }
+
+		if (_strlen(buffer) == 1 && buffer[0] == '\n')
+		{
+			continue;
+		}
+
                 int nwords = 0;
                 char **arr = str_split (buffer, &nwords);
                 char *argv[nwords + 1];
                 for (int i = 0; i < nwords; i++){
-                    if (arr[i][str_length(arr[i]) - 1] == '\n')
+                    if (arr[i][_strlen(arr[i]) - 1] == '\n')
                     {
-                        arr[i][str_length(arr[i]) - 1] = '\0';
+                        arr[i][_strlen(arr[i]) - 1] = '\0';
                     }
                     argv[i] = arr[i];
                 }
