@@ -256,17 +256,10 @@ char *get_path(char *command)
 void run(char **line)
 {
 
-    char *argument = (*(line + 1));
-    char *argv[4];
-
     if ((access(line[0], F_OK) == 0))
     {
-        argv[0] = line[0];
-        argv[1] = argument;
-        argv[2] = ".";
-        argv[3] = NULL;
 
-        if (execve(argv[0], argv, NULL) == -1)
+        if (execve(line[0], line, NULL) == -1)
         {
             perror("PERMISSION OK AND ERROR : ");
             exit(0);
@@ -280,12 +273,9 @@ void run(char **line)
         slash = str_concat(path, "/");
         full_path = str_concat(slash, *line);
 
-        argv[0] = full_path;
-        argv[1] = argument;
-        argv[2] = ".";
-        argv[3] = NULL;
-
-        if (execve(argv[0], argv, NULL) == -1)
+        line[0] = full_path;
+        
+        if (execve(line[0], line, NULL) == -1)
         {
             perror("PERMISSION DENIED AND ERROR : ");
             exit(0);
