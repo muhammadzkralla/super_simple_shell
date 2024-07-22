@@ -57,6 +57,11 @@ char **str_split(char *str, int *number_of_words)
 	return (str_arr);
 }
 
+/**
+ * main-prototype
+ *
+ * Return: Always 0.
+ */
 int main ()
 {
 	int nwords = 0;
@@ -75,4 +80,5 @@ int main ()
 	}
 
 	free(arr);
+	return(0);
 }

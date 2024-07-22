@@ -9,7 +9,7 @@ extern char **environ;
  *
  * Return: Always 0.
  */
-int main(int ac, char **av, char **env)
+int main(__attribute__((unused))int ac, __attribute__((unused))char **av, char **env)
 {
 
 	printf("\nUsing the third parameter : \n\n\n");
@@ -34,6 +34,7 @@ int main(int ac, char **av, char **env)
 	{
 		printf("%s\n", environ[j++]);
 	}
+
 	return (0);
 
 }
