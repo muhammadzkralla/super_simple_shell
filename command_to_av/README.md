@@ -12,7 +12,7 @@ gcc -Wall -Werror -Wextra -pedantic command_to_av.c -o command_to_av.o
 These flags are used to include more warnings and treat them as errors as well as forcing ISO C.
 
 ## Outputs
-`./command_to_av` <br>
+`./command_to_av.o` <br>
 ```text
 Type the string : one two three four five
 You typed : one two three four five
