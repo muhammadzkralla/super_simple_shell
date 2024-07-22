@@ -360,9 +360,9 @@ int main(void)
 				if (chdir(argv[1]) != 0)
 				{
 					perror("chdir failed");
+					exit(0);
 				}
 
-				exit(0);
 			}
 			else if (_strcmp(argv[0], "stop") == 0)
 			{
