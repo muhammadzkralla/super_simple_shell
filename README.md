@@ -1,4 +1,4 @@
-<hi align = "center"> Super Simple Shell </h1>
+<h1 align = "center"> Super Simple Shell </h1>
 
 ## Introduction
 This is a shell terminal built by me with C lang. The terminal can run all the Linux external commands or system binaries with any number of arguments or flags/options like `ls -l /tmp`, `cat`, `pwd`, `cp`, `mv`, `vim`, `nano`, `emacs`, `grep`...and all the other binaries, as well as some internal commands like `cd <path> or cd ..`, `bg <PID>`, `env` and sending a `SIGSTOP` signal to a certain process. <br> 
