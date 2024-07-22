@@ -22,8 +22,6 @@ SESSION_MANAGER=local/zkrallah-VirtualBox:@/tmp/.ICE-unix/1948,unix/zkrallah-Vir
 QT_ACCESSIBILITY=1
 COLORTERM=truecolor
 XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
-SSH_AGENT_LAUNCHER=gnome-keyring
-XDG_MENU_PREFIX=gnome-
 ...
 
 
