@@ -6,7 +6,7 @@ This program prints the arguments passed to the executable when running it separ
 ## Compilation
 In order to run the program, I ran this command : <br>
 ```bash
-gcc -Wall -Werror -Wextra -pedantic command_to_av.c -o comman_to_av.o
+gcc -Wall -Werror -Wextra -pedantic command_to_av.c -o command_to_av.o
 ```
 
 These flags are used to include more warnings and treat them as errors as well as forcing ISO C.
