@@ -8,7 +8,7 @@ The `simple_shell.c` file is a collection of all the codes inside the directorie
 ## Compilation
 In order to run the program, I ran this command : <br>
 ```bash
-gcc -Wall -Werror -Wextra -pedantic simple_shell.c -o simple_shell
+gcc -Wall -Werror -Wextra -pedantic -std=c99 *.c -o simple_shell
 ```
 
 These flags are used to include more warnings and treat them as errors as well as forcing ISO C.
