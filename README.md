@@ -8,7 +8,7 @@ The `simple_shell.c` file is a collection of all the codes inside the directorie
 ## Compilation
 In order to run the program, I ran this command : <br>
 ```bash
-gcc -Wall -Werror -Wextra -pedantic simple_shell.c -o simple_shell.o
+gcc -Wall -Werror -Wextra -pedantic simple_shell.c -o simple_shell
 ```
 
 These flags are used to include more warnings and treat them as errors as well as forcing ISO C.
@@ -17,27 +17,31 @@ These flags are used to include more warnings and treat them as errors as well a
 
 Here's some examples of the command you can do with my terminal after runnging it : <br><br>
 
-`./simple_shell.o` <br>
+`./simple_shell` <br>
 ```text
 zkrallah$ ls
-README.md  command_to_av  find_command	fork+wait+execve  pid_max.sh  process_id  simple_shell.c  super_simple_shell
-av	   execute	  fork		get_env		  print_env   prompt	  simple_shell.o  wait
+av             copy.c   find_command  fork+wait+execve  path_util.c  print_env   prompt     run.c    simple_shell    str_utils.c         wait
+command_to_av  execute  fork          get_env           pid_max.sh   process_id  README.md  shell.h  simple_shell.c  super_simple_shell
 zkrallah$ ls -l
-total 84
--rw-rw-r-- 1 zkrallah zkrallah   756 Jul 22 22:12 README.md
-drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 18:02 av
+-rw-rw-r-- 1 zkrallah zkrallah  7484 Jul 25 07:58 README.md
+drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 25 07:48 av
 drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 19:19 command_to_av
+-rw-rw-r-- 1 zkrallah zkrallah  1474 Jul 25 07:31 copy.c
 drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 19:04 execute
 drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 21:53 find_command
 drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 17:54 fork
 drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 18:34 fork+wait+execve
 drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 19:17 get_env
+-rw-rw-r-- 1 zkrallah zkrallah  1287 Jul 25 07:14 path_util.c
 -rwxrwxr-x 1 zkrallah zkrallah    41 Jul 12  2023 pid_max.sh
 drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 19:22 print_env
 drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 19:09 process_id
 drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 19:16 prompt
--rw-rw-r-- 1 zkrallah zkrallah  6982 Jul 22 22:19 simple_shell.c
--rwxrwxr-x 1 zkrallah zkrallah 17080 Jul 22 22:19 simple_shell.o
+-rw-rw-r-- 1 zkrallah zkrallah   683 Jul 25 07:15 run.c
+-rw-rw-r-- 1 zkrallah zkrallah   792 Jul 25 07:47 shell.h
+-rwxrwxr-x 1 zkrallah zkrallah 21648 Jul 25 07:47 simple_shell
+-rw-rw-r-- 1 zkrallah zkrallah  1857 Jul 25 07:45 simple_shell.c
+-rw-rw-r-- 1 zkrallah zkrallah  3366 Jul 25 07:13 str_utils.c
 drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 19:27 super_simple_shell
 drwxrwxr-x 2 zkrallah zkrallah  4096 Jul 22 18:26 wait
 zkrallah$ ls -a /tmp/
@@ -65,20 +69,38 @@ zkrallah$ ls
 README.md  av.c  av.o
 zkrallah$ cd ..
 zkrallah$ ls
-README.md  command_to_av  find_command	fork+wait+execve  pid_max.sh  process_id  simple_shell.c  super_simple_shell
-av	   execute	  fork		get_env		  print_env   prompt	  simple_shell.o  wait
+av             copy.c   find_command  fork+wait+execve  path_util.c  print_env   prompt     run.c    simple_shell    str_utils.c         wait
+command_to_av  execute  fork          get_env           pid_max.sh   process_id  README.md  shell.h  simple_shell.c  super_simple_shell
 zkrallah$ mv README.md DONTREADME.md
 zkrallah$ ls
-DONTREADME.md  command_to_av  find_command  fork+wait+execve  pid_max.sh  process_id  simple_shell.c  super_simple_shell
-av	       execute	      fork	    get_env	      print_env   prompt      simple_shell.o  wait
+DONTREADME.md  command_to_av  execute	    fork	      get_env	   pid_max.sh  process_id  run.c    simple_shell    str_utils.c		wait
+av	       copy.c	      find_command  fork+wait+execve  path_util.c  print_env   prompt	   shell.h  simple_shell.c  super_simple_shell
 zkrallah$ mv DONTREADME.md README.md
 zkrallah$ ls
-README.md  command_to_av  find_command	fork+wait+execve  pid_max.sh  process_id  simple_shell.c  super_simple_shell
-av	   execute	  fork		get_env		  print_env   prompt	  simple_shell.o  wait
+README.md  command_to_av  execute	fork		  get_env      pid_max.sh  process_id  run.c	simple_shell	str_utils.c	    wait
+av	   copy.c	  find_command	fork+wait+execve  path_util.c  print_env   prompt      shell.h	simple_shell.c	super_simple_shell
+zkrallah$ cd av
+zkrallah$ ls
+README.md  av.c  av.o
+zkrallah$ copy av.o copied
+zkrallah$ ls
+README.md  av.c  av.o  copied
+zkrallah$ copy av.o copied
+Error: Destination file 'copied' already exists
+zkrallah$ rm -r copied
+zkrallah$ ls
+README.md  av.c  av.o
+zkrallah$ pwd
+/home/zkrallah/Desktop/super_simple_shell/av
+zkrallah$ copy av.c /home/zkrallah/Desktop/super_simple_shell   
+zkrallah$ cd ..
+zkrallah$ ls
+README.md  av.c		  copy.c   find_command  fork+wait+execve  path_util.c	print_env   prompt  shell.h	    simple_shell  super_simple_shell
+av	   command_to_av  execute  fork		 get_env	   pid_max.sh	process_id  run.c   simple_shell.c  str_utils.c     wait
 zkrallah$ exit
 ```
 
-`./simple_shell.0` <br>
+`./simple_shell` <br>
 ```text
 zkrallah$ ps -au
 USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
@@ -112,4 +134,4 @@ zkrallah    8355  0.0  0.1   7064  2944 pts/0    R+   22:23   0:00 /usr/bin/ps -
 zkrallah$ exit
 ```
 
-> **Note:** The sample outputs are not the only supported commands, in fact I can not show examples for all the supported commands as all the external commands or system binaries are supported, in order to see all the supported commands, you can open the `/usr/bin/` directory to see all the supported commands as well as some internal commands that you will not find in the directory.
+> **Note:** The sample outputs are not the only supported commands, in fact I can not show examples for all the supported commands as all the external commands or system binaries are supporte i.e any program that has its path in the `PATH` environment variable.
