@@ -56,4 +56,7 @@ void zuptime();
 int is_valid(char *str);
 void phist();
 
+/* pipe file */
+void run_with_pipes(char ***cmds, int num_cmds);
+
 #endif /* SHELL_H */

@@ -26,7 +26,7 @@ int main(void)
 		{
 			exit(0);
 		}
-		else if (_strcmp(buffer, "env\n") == 0)
+		else if (_strcmp(buffer, "zenv\n") == 0)
 		{
 			unsigned int j;
 			j = 0;
@@ -53,6 +53,33 @@ int main(void)
 		}
 
 		argv[nwords] = NULL;
+		
+		int num_cmds = 1;
+        	for (int i = 0; i < nwords; i++)
+		{
+			if (_strcmp(argv[i], "|") == 0)
+			{
+				num_cmds++;
+			}
+		}
+
+		// handle cd without forking to avoid muliple exits
+		if (_strcmp(argv[0], "cd") == 0)
+		{
+			if (is_directory(argv[1]))
+			{
+				if (chdir(argv[1]) != 0)
+				{
+					perror("chdir failed");
+				}
+			} else
+			{
+				printf("Invalid directory.\n");
+			}
+
+			continue;
+		}
+
 
 		pid_t child_pid = 1;
 		int status;
@@ -71,12 +98,24 @@ int main(void)
 
 		if (child_pid == 0)
 		{
-			if (_strcmp(argv[0], "cd") == 0)
+			if (num_cmds > 1)
 			{
-				if (chdir(argv[1]) != 0)
+				char ***cmds = malloc(num_cmds * sizeof(char **));
+				int cmd_idx = 0;
+				cmds[cmd_idx] = &argv[0];
+
+				for (int i = 0; i < nwords; i++)
 				{
-					perror("chdir failed");
+					if (_strcmp(argv[i], "|") == 0)
+					{
+						argv[i] = NULL;
+						cmd_idx++;
+						cmds[cmd_idx] = &argv[i + 1];
+					}
 				}
+
+				run_with_pipes(cmds, num_cmds);
+				free(cmds);
 
 				exit(0);
 			}
@@ -181,14 +220,14 @@ int main(void)
 				printf("    1- cd\n");
 				printf("    2- bg\n");
 				printf("    3- stop (SIGSTOP)\n");
-				printf("    4- cd\n");
-				printf("    5- phist\n");
+				printf("    4- phist\n");
 				printf("- My own implementation of some system binaries :\n");
 				printf("    1- zcopy\n");
 				printf("    2- zmove\n");
-				printf("    3- zuptime\n");
+				printf("    3- ztype\n");
 				printf("    4- zfree\n");
 				printf("    5- zuptime\n");
+				printf("    6- zenv\n");
 
 				exit(0);
 			}
