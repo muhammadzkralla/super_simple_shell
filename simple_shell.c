@@ -7,8 +7,8 @@
  */
 int main(void)
 {
-	char *buffer = malloc(1024);
-	size_t len = 1024;
+	char *buffer = malloc(BUF_SIZE);
+	size_t len = BUF_SIZE;
 
 	while (1)
 	{
@@ -76,9 +76,9 @@ int main(void)
 				if (chdir(argv[1]) != 0)
 				{
 					perror("chdir failed");
-					exit(0);
 				}
 
+				exit(0);
 			}
 			else if (_strcmp(argv[0], "stop") == 0)
 			{
@@ -98,7 +98,7 @@ int main(void)
 
 				exit(0);
 			}
-			else if (_strcmp(argv[0], "copy") == 0)
+			else if (_strcmp(argv[0], "zcopy") == 0)
 			{
 				char *target_path = _strcpy(argv[2]);
 				if (is_directory(target_path))
@@ -109,6 +109,100 @@ int main(void)
 				}
 
 				copy_file(argv[1], target_path);
+				exit(0);
+			}
+			else if (_strcmp(argv[0], "zmove") == 0)
+			{
+				char *target_path = _strcpy(argv[2]);
+				if (is_directory(target_path))
+				{
+					char *slash = str_concat(target_path, "/");
+					char *full_path = str_concat(slash, argv[1]);
+					target_path = _strcpy(full_path);
+				}
+
+				move_file(argv[1], target_path);
+				exit(0);
+			}
+			else if (_strcmp(argv[0], "ztype") == 0)
+			{
+				if (nwords != 2)
+				{
+					fprintf(stderr, "Usage: %s command\n", argv[0]);
+				}
+				else
+				{
+					char result_path[BUF_SIZE];
+					int found = type(argv[1], result_path, BUF_SIZE);
+
+					if (found == 0)
+					{
+						printf("%s is %s\n", argv[1], result_path);
+					}
+					else
+					{
+						printf("%s not found\n", argv[1]);
+					}
+				}
+
+				exit(0);
+			}
+			else if (_strcmp(argv[0], "zfree") == 0)
+			{
+				if (nwords != 1)
+				{
+					fprintf(stderr, "Usage: %s\n", argv[0]);
+				}
+				else
+				{
+					zfree();
+				}
+
+				exit(0);
+			}
+			else if (_strcmp(argv[0], "zuptime") == 0)
+			{
+				if (nwords != 1)
+				{
+					fprintf(stderr, "Usage: %s\n", argv[0]);
+				}
+				else
+				{
+					zuptime();
+				}
+
+				exit(0);
+			}
+			else if (_strcmp(argv[0], "help") == 0)
+			{
+				printf("Supported commands :\n");
+				printf("- All the system binaries and external commands inside the PATH variable.\n");
+				printf("- Internal commands and other:\n");
+				printf("    1- cd\n");
+				printf("    2- bg\n");
+				printf("    3- stop (SIGSTOP)\n");
+				printf("    4- cd\n");
+				printf("    5- phist\n");
+				printf("- My own implementation of some system binaries :\n");
+				printf("    1- zcopy\n");
+				printf("    2- zmove\n");
+				printf("    3- zuptime\n");
+				printf("    4- zfree\n");
+				printf("    5- zuptime\n");
+
+				exit(0);
+			}
+			else if (_strcmp(argv[0], "phist") == 0)
+			{
+				if (nwords != 1)
+				{
+					fprintf(stderr, "Usage: %s\n", argv[0]);
+				}
+				else
+				{
+					phist();
+				}
+
 				exit(0);
 			}
 			else

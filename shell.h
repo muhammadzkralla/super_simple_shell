@@ -14,6 +14,8 @@
 #include <signal.h>
 #include <libgen.h>
 #include <fcntl.h>
+#include <sys/sysinfo.h>
+#include <ctype.h>
 
 #define BUF_SIZE 1024
 
@@ -34,7 +36,24 @@ char *get_path(char *command);
 void run(char **line);
 
 /* Copy file */
-void copy_file(const char *source, const char *destination);
-int is_directory(const char *path);
+void copy_file(char *source, char *destination);
+int is_directory(char *path);
+
+/* move file */
+void move_file(char *source, char *destination);
+
+/* type file */
+int type(char *command, char *result_path, size_t result_size);
+
+/* free file */
+void zfree();
+
+/* uptime file */
+unsigned long idle_time();
+void zuptime();
+
+/* phist file */
+int is_valid(char *str);
+void phist();
 
 #endif /* SHELL_H */
